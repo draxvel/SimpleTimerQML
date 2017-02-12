@@ -1,4 +1,4 @@
-import QtQuick 2.7
+import QtQuick 2.5
 import QtQuick.Controls 1.5
 import QtQuick.Layouts 1.3
 
@@ -10,19 +10,24 @@ ApplicationWindow
     property var lap:0
 
     visible: true
-    width: 640
-    height: 480
+    width: 280
+    height: 250
     title: qsTr("Simple Timer")
+    maximumHeight: height
+    maximumWidth: width
+    minimumHeight: height
+    minimumWidth: width
+
 
     Item
     {
         Timer
         {
             id:simpleTimer
-            interval: 20; running: false; repeat: true
+            interval: 21; running: false; repeat: true
             onTriggered:
             {
-                ms=ms+20
+                ms=ms+21
                 if(ms>=1000)
                 {
                     s=s+1
@@ -55,7 +60,7 @@ ApplicationWindow
         {
             Button
             {
-                id: buttStart
+                id: startBut
                 text: qsTr("Start")
                 onClicked:
                 {
@@ -66,12 +71,12 @@ ApplicationWindow
                     //pause or start
                     if(simpleTimer.running==false)
                      {
-                        buttStart.text= qsTr("Pause")
+                        startBut.text= qsTr("Pause")
                         simpleTimer.running =true
                      }
                     else
                     {
-                        buttStart.text=  qsTr("Start")
+                        startBut.text=  qsTr("Start")
                         simpleTimer.running =false
                     }
                 }
@@ -84,12 +89,12 @@ ApplicationWindow
                 text: qsTr("Stop")
                 onClicked:
                 {
-                    if(lapTextArea.text!="")
+                    if(lapTextArea.text != "")
                         buttnewLine.text = qsTr("Clear all laps")
                     else buttnewLine.enabled = false
 
                     buttStop.enabled = false
-                    buttStart.text = "Start"
+                    startBut.text = "Start"
 
                     simpleTimer.stop()
                     lablTimer.text="0:00:000"
@@ -127,13 +132,13 @@ ApplicationWindow
                     }
              }
 
+
          }
-            TextArea
-            {
-                id:lapTextArea
-                readOnly: true
-                font.pixelSize: 22
-            }
-    }
+
+        TextArea {
+            id: lapTextArea
+            font.pixelSize: 22
+        }
 }
 
+}
